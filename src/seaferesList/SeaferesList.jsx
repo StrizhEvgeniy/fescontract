@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Input, Table, Tooltip} from "antd";
-import moment from "moment";
 
-const data = [
-  {
+
+const SeaferesList = () => {
+  const [data, setdata] = useState([{
     key: 1,
     name: 'Иванов Иван Иванович',
     email: 'Iva@nov.ru',
@@ -11,20 +11,18 @@ const data = [
     level: 'B1',
     testType: 'LevelTest',
     date: '2021-03-20'
-  },
-  {
-    key: 2,
-    name: 'Иванов Иван Игоревич',
-    email: "Lala@la.la",
-    points: 52,
-    level: 'С1',
-    testType: 'LevelUpTest',
-    date: '2020-03-20',
+    }]);
 
-  }
-]
+    useEffect(() => {
+      console.log('in useEffect')
+        fetch("http://127.0.0.1:5000/get_data").then((res) =>
+            res.json().then((data) => {
+                console.log('got data')
+                setdata(data);
+            })
+        );
+    }, []);
 
-const SeaferesList = (props) => {
   const [dataSource, setDataSource] = useState(data)
   const [value, setValue] = useState({
     name: '',
