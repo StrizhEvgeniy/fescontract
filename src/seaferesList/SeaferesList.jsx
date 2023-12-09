@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Input, Table, Tooltip} from "antd";
-import moment from "moment";
+import axios from "axios";
 
 const data = [
   {
@@ -26,10 +26,25 @@ const data = [
 
 const SeaferesList = (props) => {
   const [dataSource, setDataSource] = useState(data)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(false)
   const [value, setValue] = useState({
     name: '',
     email: ''
   })
+
+  useEffect(() => {
+    setIsLoading(true)
+    fetch('http://127.0.0.1:5000/').then((data) => {
+      setIsLoading(false)
+      console.log(data)
+
+    }).catch((e) => {
+      setError(true)
+      console.log(e)
+    })
+  }, []);
+
 
   const filterInput = (field) => (
     <Input
@@ -79,7 +94,7 @@ const SeaferesList = (props) => {
     },
   ]
 
-  return <div><Table columns={columns} dataSource={dataSource}/></div>;
+  return <div><Table columns={columns} dataSource={dataSource}/></div>
 }
 
 export default SeaferesList;
