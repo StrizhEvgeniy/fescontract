@@ -3,26 +3,29 @@ import {Input, Table, Tooltip} from "antd";
 import axios from "axios";
 
 const SeaferesList = (props) => {
-  const [data, setData] = useState([])
-  const [dataSource, setDataSource] = useState(data)
+  const [data, setData] = useState(null)
+  const [dataSource, setDataSource] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
-  const [value, setValue] = useState({
+  const [value, setValue] = useState( {
     name: '',
     email: ''
   })
 
   useEffect(() => {
-    setIsLoading(true)
-    axios('http://localhost:5000/get_data/').then((data) => {
-      setIsLoading(false)
-      console.log(data)
-
+    axios('http://127.0.0.1:5000/update')
+    axios('http://127.0.0.1:5000/get_data').then((data) => {
+      setData(data.data)
     }).catch((e) => {
       setError(true)
       console.log(e)
     })
-  }, []);
+  }, [setData]);
+
+  useEffect(() => {
+   setDataSource(data)
+  }, [data]);
+
 
 
   const filterInput = (field) => (
