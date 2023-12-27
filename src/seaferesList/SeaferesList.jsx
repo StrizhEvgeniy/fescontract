@@ -13,8 +13,8 @@ const SeaferesList = (props) => {
   })
 
   useEffect(() => {
-    axios('http://127.0.0.1:5000/update')
-    axios('http://127.0.0.1:5000/get_data').then((data) => {
+    axios('/update')
+    axios('/get_data').then((data) => {
       setData(data.data)
     }).catch((e) => {
       setError(true)
