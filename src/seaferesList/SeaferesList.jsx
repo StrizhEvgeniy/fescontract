@@ -14,7 +14,7 @@ const SeaferesList = (props) => {
 
   useEffect(() => {
     setIsLoading(true)
-    axios('http://seafarers-fescontract.ru:5000/get_data/').then((data) => {
+    axios('http://localhost:5000/get_data/').then((data) => {
       setIsLoading(false)
       console.log(data)
 
